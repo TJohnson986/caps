@@ -7,3 +7,7 @@
 
 // Wait 3 seconds, then log "delivered" to the console. Emit a 'delivered' event with the same payload
 
+const events = require('../events.js');
+const pickupHandler = require('./pickup-handler.js');
+
+events.on('pickup', pickupHandler);

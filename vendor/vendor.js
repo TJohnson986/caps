@@ -12,4 +12,5 @@ const orderHandler = require('./order-handler.js');
 
 
 events.on('newOrder', orderHandler);
+// events.on('delivered', console.log('thank you, this order has been delivered'));
 
