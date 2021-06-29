@@ -9,5 +9,7 @@
 
 const events = require('../events.js');
 const pickupHandler = require('./pickup-handler.js');
+const transitHandler = require('./in-transit-handler.js');
 
 events.on('pickup', pickupHandler);
+events.on('inTransit', transitHandler);

@@ -9,8 +9,11 @@
 
 const events = require('../events.js');
 const orderHandler = require('./order-handler.js');
+const deliveryHandler = require('./delivery-handler.js');
+
+require('../driver/in-transit-handler.js');
 
 
 events.on('newOrder', orderHandler);
-// events.on('delivered', console.log('thank you, this order has been delivered'));
+events.on('delivered', deliveryHandler);
 
