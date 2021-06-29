@@ -6,3 +6,10 @@
 // Emit a 'pickup' event and attach the simulated order as a payload
 
 // Monitor the system for events - whenever the 'delivered' event occurs, log 'thank you' to the console
+
+const events = require('../events.js');
+const orderHandler = require('./order-handler.js');
+
+
+events.on('newOrder', orderHandler);
+
