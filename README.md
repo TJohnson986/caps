@@ -9,4 +9,4 @@ None
 Install Jest for testing
 
 ## UML
-![Class 11 UML](/Class 11 UML.PNG)
+![Class 11 UML](/Class-11-UML.PNG)
