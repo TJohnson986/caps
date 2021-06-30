@@ -9,4 +9,4 @@ None
 Install Jest for testing
 
 ## UML
-<-- Add UML for lab -->
+![Class 11 UML](/Class 11 UML.PNG)
