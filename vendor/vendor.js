@@ -1,19 +1,23 @@
 'use strict'
 
-// Declare store name in .env
-// Every 5 seconds, simulate new customer order. Order should be an object, with storeName, orderId, customerName, and address.
+const io = require('socket.io-client');
+const faker = require('faker');
 
-// Emit a 'pickup' event and attach the simulated order as a payload
+const socket = io.connect('http://localhost:3000');
 
-// Monitor the system for events - whenever the 'delivered' event occurs, log 'thank you' to the console
+socket.on('delivered', (order) => {
+  console.log(`Thank you, order #: ${order.randomOrderId} has been delivered!`);
+})
 
-const events = require('../events.js');
-const orderHandler = require('./order-handler.js');
-const deliveryHandler = require('./delivery-handler.js');
+setInterval(() => {
+  const order = {
+    randomStore: faker.company.companyName(),
+    randomOrderId: faker.finance.routingNumber(),
+    randomName: faker.name.findName(),
+    randomAddress: faker.address.streetAddress()
+  }
+  console.log('-----NEW ORDER-----------------------------------------------------')
+  console.log(order);
 
-require('../driver/in-transit-handler.js');
-
-
-events.on('newOrder', orderHandler);
-events.on('delivered', deliveryHandler);
-
+  socket.emit('pickup', order)
+}, 500);
