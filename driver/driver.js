@@ -1,15 +1,16 @@
 'use strict'
 
-// Monitor system for events
-// On the 'pickup' event, wait 1 second then log 'DRIVER: picked up [ORDER_ID]' to the console
+const io = require('socket.io-client');
+const socket = io.connect('http://localhost:3000');
+const dateTime = new Date();
 
-//Emit an 'in-transit event with the payload received
+socket.on('pickup', order => {
+  setTimeout(() => {
+    console.log(`Driver picked up order #${order.randomOrderId} on ${dateTime}`)
+    socket.emit('inTransit', order);
+  }, 1500);
 
-// Wait 3 seconds, then log "delivered" to the console. Emit a 'delivered' event with the same payload
-
-const events = require('../events.js');
-const pickupHandler = require('./pickup-handler.js');
-const transitHandler = require('./in-transit-handler.js');
-
-events.on('pickup', pickupHandler);
-events.on('inTransit', transitHandler);
+  setTimeout(() => {
+    socket.emit('delivered', order)
+  }, 3000);
+});

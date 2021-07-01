@@ -13,9 +13,15 @@ server.on('connection', (socket) => {
   // });
 
   socket.on('pickup', (order) => {
-    server.emit('inTransit', order);
+    server.emit('pickup', order);
   })
   
-  socket.on('inTransit')
+  socket.on('inTransit', (order) => {
+    server.emit('inTransit', order);
+  })
+
+  socket.on('delivered', (order) => {
+    server.emit('delivered', order);
+  })
 
 });

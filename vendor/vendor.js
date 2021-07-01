@@ -5,6 +5,10 @@ const faker = require('faker');
 
 const socket = io.connect('http://localhost:3000');
 
+socket.on('delivered', (order) => {
+  console.log(`Thank you, order #: ${order.randomOrderId} has been delivered!`);
+})
+
 setInterval(() => {
   const order = {
     randomStore: faker.company.companyName(),
