@@ -7,7 +7,7 @@ const dateTime = new Date();
 socket.on('pickup', order => {
   setTimeout(() => {
     console.log(`Driver picked up order #${order.randomOrderId} on ${dateTime}`)
-    socket.emit('inTransit', order);
+    socket.broadcast.emit('inTransit', order);
   }, 1500);
 
   setTimeout(() => {
