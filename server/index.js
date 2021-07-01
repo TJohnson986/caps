@@ -2,8 +2,11 @@
 
 const io = require('socket.io');
 const faker = require('faker');
+const MessageQueue = require('../messageQueue.js');
 
 const server = io(3000);
+
+const orderQueue = new MessageQueue();
 
 server.on('connection', (socket) => {
   console.log('client connected: ' +socket.id);
@@ -13,7 +16,16 @@ server.on('connection', (socket) => {
   // });
 
   socket.on('pickup', (order) => {
+    orderQueue.add(order);
+    console.log('Order added to the queue : ', orderQueue);
     server.emit('pickup', order);
+  })
+
+  socket.on('getOrders', () => {
+    const allOrders = orders.get();
+    allOrders.forEach(order => {
+      socket.emit('order', order);
+    })
   })
   
   socket.on('inTransit', (order) => {
@@ -21,6 +33,7 @@ server.on('connection', (socket) => {
   })
 
   socket.on('delivered', (order) => {
+    orderQueue.received(order.randomOrderId);
     server.emit('delivered', order);
   })
 
