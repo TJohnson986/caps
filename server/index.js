@@ -17,6 +17,7 @@ server.on('connection', (socket) => {
 
   socket.on('pickup', (order) => {
     orderQueue.add(order);
+    console.log('Order added to the queue : ', orderQueue);
     server.emit('pickup', order);
   })
 
@@ -32,7 +33,7 @@ server.on('connection', (socket) => {
   })
 
   socket.on('delivered', (order) => {
-    orderQueue.received(order.id);
+    orderQueue.received(order.randomOrderId);
     server.emit('delivered', order);
   })
 
